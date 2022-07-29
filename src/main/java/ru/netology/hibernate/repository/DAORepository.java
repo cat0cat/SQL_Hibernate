@@ -1,20 +1,25 @@
 package ru.netology.hibernate.repository;
 
-import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.netology.hibernate.entity.Person;
+import ru.netology.hibernate.entity.PersonId;
 
-import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-@AllArgsConstructor
-public class DAORepository {
-    private EntityManager entityManager;
-    public List<Person> getPersonsByCity(String city) {
-        return entityManager.createQuery("SELECT p FROM Person p WHERE p.cityOfLiving = :city", Person.class)
-                .setParameter("city", city)
-                .getResultList();
-    }
+public interface DAORepository extends JpaRepository<Person, PersonId>  {
+
+    @Query(value = "select p from Person p where p.cityOfLiving = :city")
+    List<Person> findByCityOfLiving(@Param("city") String city);
+
+    @Query(value = "select p from Person p where p.age < :age order by p.age")
+    List<Person> findByAgeLessThanOrderByAge(@Param("age") int age);
+
+    @Query(value = "select p from Person p where p.name = :name and p.surname = :surname")
+    Optional<Person>findByNameAndSurname(@Param("name") String name, @Param("surname") String surname);
 
 }
