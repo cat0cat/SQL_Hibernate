@@ -29,7 +29,7 @@ public class DAOService implements CommandLineRunner {
                     var person = Person.builder()
                             .name(names.get(random.nextInt(names.size())))
                             .surname(surnames.get(random.nextInt(surnames.size())))
-                            .age(random.nextInt(30))
+                            .age(random.nextInt(92))
                             .phoneNumber(random.nextInt(123456))
                             .cityOfLiving(cities.get(random.nextInt(surnames.size())))
                             .build();
