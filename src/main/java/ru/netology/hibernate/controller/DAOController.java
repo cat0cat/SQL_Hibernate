@@ -33,4 +33,12 @@ public class DAOController {
         return service.getNameSurname(name, surname);
     }
 
+    @GetMapping("/welcome")
+    public String getWelcome() {
+        return "Welcome";
+    }
+    @GetMapping("/")
+    public String get() {
+        return "Hello from GET";
+    }
 }
